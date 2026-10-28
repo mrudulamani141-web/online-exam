@@ -1,0 +1,57 @@
+==============================================================================
+ONLINE EXAMINATION MANAGEMENT SYSTEM - FRONTEND ARCHITECTURE & USER GUIDE
+==============================================================================
+
+1. TECH STACK & DESIGN SYSTEM
+------------------------------------------------------------------------------
+• Semantic HTML5, CSS3 (Modern Flexbox & CSS Grid), ES6+ Vanilla JavaScript
+• No external framework dependencies required: clean, lightweight, highly performant
+• Responsive design across mobile, tablet, and desktop viewports
+• Glassmorphic design touches, badge indicators, modal windows, and toast alerts
+
+2. PAGES & USER WORKFLOWS
+------------------------------------------------------------------------------
+frontend/
+├── index.html          # Landing page with instant 1-click Demo Sign-In
+├── login.html          # Authentication screen (Login / Register with Role selection)
+├── dashboard.html      # Unified role-aware dashboard (Student, Teacher, Admin)
+├── exam-portal.html    # Distraction-free examination room with countdown timer
+├── results.html        # Detailed score report & question-by-question review
+├── css/
+│   ├── styles.css      # Design tokens, buttons, navbar, modals, cards, toasts
+│   ├── dashboard.css   # Metric widgets, tab layouts, exam cards, tables
+│   └── exam.css        # Exam room layout, timer, question palette, review flags
+└── js/
+    ├── api.js          # Centralized fetch wrapper with JWT Authorization
+    ├── auth.js         # Authentication state, session storage, page guards
+    ├── dashboard.js    # Multi-role dashboard controller & modal logic
+    ├── exam-taking.js  # Live timer, palette navigation, auto-submit, anti-cheat
+    ├── results.js      # Diagnostic score report renderer
+    └── utils.js        # Toast alerts, date formatting, modal dialog toggling
+
+3. CORE USER ROLES & CAPABILITIES
+------------------------------------------------------------------------------
+👨‍🎓 Student:
+• Browse active and upcoming examinations
+• Launch timed examination session with live countdown clock
+• Question palette showing answered, unanswered, and marked-for-review questions
+• Automatic submission on time expiration
+• Anti-cheat window blur warnings
+• Instant grading, percentage score, pass/fail status, and diagnostic review
+
+👩‍🏫 Teacher / Instructor:
+• Create exams with custom duration, passing threshold, and total marks
+• Author questions (Multiple Choice with dynamic options, True/False, Short Answer)
+• Manage question point weightings and answer keys
+• Toggle exam visibility (Publish / Unpublish)
+• Review student submissions and monitor class performance metrics
+
+🛡️ Administrator:
+• Platform-wide monitoring of users, exams, and submissions
+• Manage user directory and delete obsolete accounts
+• Oversee global pass rates and testing volume
+
+4. LAUNCHING THE APPLICATION
+------------------------------------------------------------------------------
+Open http://localhost:5000 in any modern web browser or open frontend/index.html.
+==============================================================================

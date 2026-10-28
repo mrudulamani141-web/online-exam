@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In / Register - Examination Management System</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .auth-page {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 140px);
+      padding: 2.5rem 1rem;
+    }
+    .auth-box {
+      width: 100%;
+      max-width: 480px;
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+    }
+    .auth-header {
+      padding: 2rem 2rem 1rem 2rem;
+      text-align: center;
+    }
+    .auth-header h2 {
+      font-size: 1.6rem;
+      margin-bottom: 0.35rem;
+    }
+    .auth-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border-color);
+      margin: 1rem 2rem 1.5rem 2rem;
+    }
+    .auth-tab-btn {
+      flex: 1;
+      padding: 0.75rem;
+      background: none;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all var(--transition-fast);
+    }
+    .auth-tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    .auth-body {
+      padding: 0 2rem 2rem 2rem;
+    }
+    .quick-creds-box {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: var(--bg-subtle);
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+    }
+    .quick-creds-title {
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .quick-fill-chip {
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--primary);
+      cursor: pointer;
+      margin: 0.2rem;
+      transition: background var(--transition-fast);
+    }
+    .quick-fill-chip:hover {
+      background: var(--primary-light);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand">
+        <div class="brand-icon">🎓</div>
+        <div class="brand-text">Exam<span>Core</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+      </div>
+      <div id="nav-user-section" class="user-menu">
+        <a href="index.html" class="btn btn-secondary btn-sm">Back to Home</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Auth Form -->
+  <div class="auth-page">
+    <div class="auth-box">
+      <div class="auth-header">
+        <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">🔐</div>
+        <h2 id="auth-title">Welcome to ExamCore</h2>
+        <p style="font-size: 0.9rem;">Sign in or create an account to access online examinations.</p>
+      </div>
+
+      <!-- Auth Tabs: Login vs Register -->
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab-btn active" id="tab-login-btn" onclick="switchTab('login')">
+          Log In
+        </button>
+        <button type="button" class="auth-tab-btn" id="tab-register-btn" onclick="switchTab('register')">
+          Create Account
+        </button>
+      </div>
+
+      <div class="auth-body">
+        <!-- 1. LOGIN FORM -->
+        <form id="login-form">
+          <div class="form-group">
+            <label class="form-label" for="login-email">Email Address</label>
+            <input type="email" id="login-email" class="form-control" placeholder="name@institution.edu" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="login-password">Password</label>
+            <input type="password" id="login-password" class="form-control" placeholder="••••••••" required>
+          </div>
+
+          <button type="submit" id="login-submit-btn" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 0.5rem;">
+            Sign In →
+          </button>
+
+          <!-- Quick Test Auto-fills -->
+          <div class="quick-creds-box">
+            <div class="quick-creds-title">
+              <span>⚡ Quick-fill Demo Accounts</span>
+            </div>
+            <div style="display: flex; flex-wrap: wrap;">
+              <span class="quick-fill-chip" onclick="fillLoginForm('student@exam.com', 'Password123!')">👨‍🎓 Student</span>
+              <span class="quick-fill-chip" onclick="fillLoginForm('teacher@exam.com', 'Password123!')">👩‍🏫 Teacher</span>
+              <span class="quick-fill-chip" onclick="fillLoginForm('admin@exam.com', 'Password123!')">🛡️ Admin</span>
+            </div>
+          </div>
+        </form>
+
+        <!-- 2. REGISTER FORM -->
+        <form id="register-form" style="display: none;">
+          <div class="form-group">
+            <label class="form-label" for="reg-name">Full Name</label>
+            <input type="text" id="reg-name" class="form-control" placeholder="e.g. John Doe" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-email">Email Address</label>
+            <input type="email" id="reg-email" class="form-control" placeholder="name@domain.com" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-password">Password (min 6 characters)</label>
+            <input type="password" id="reg-password" class="form-control" placeholder="Create a strong password" minlength="6" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-role">Account Role</label>
+            <select id="reg-role" class="form-select" required>
+              <option value="student" selected>Student Candidate</option>
+              <option value="teacher">Instructor / Teacher</option>
+              <option value="admin">System Administrator</option>
+            </select>
+          </div>
+
+          <button type="submit" id="register-submit-btn" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 0.5rem;">
+            Create Account & Enter Portal →
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>ExamCore Secure Examination Management • Built with Node.js, Express & Supabase</p>
+  </footer>
+
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    function switchTab(tab) {
+      const loginForm = document.getElementById('login-form');
+      const registerForm = document.getElementById('register-form');
+      const tabLoginBtn = document.getElementById('tab-login-btn');
+      const tabRegisterBtn = document.getElementById('tab-register-btn');
+      const titleEl = document.getElementById('auth-title');
+
+      if (tab === 'login') {
+        loginForm.style.display = 'block';
+        registerForm.style.display = 'none';
+        tabLoginBtn.classList.add('active');
+        tabRegisterBtn.classList.remove('active');
+        titleEl.textContent = 'Welcome Back';
+      } else {
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'block';
+        tabLoginBtn.classList.remove('active');
+        tabRegisterBtn.classList.add('active');
+        titleEl.textContent = 'Register an Account';
+      }
+    }
+
+    function fillLoginForm(email, password) {
+      document.getElementById('login-email').value = email;
+      document.getElementById('login-password').value = password;
+      showToast(`Filled credentials for ${email}`, 'info');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check query params if ?tab=register was requested
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('tab') === 'register') {
+        switchTab('register');
+      }
+
+      // Handle Login Form Submission
+      const loginForm = document.getElementById('login-form');
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+        const submitBtn = document.getElementById('login-submit-btn');
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Signing in...';
+
+        try {
+          const res = await apiRequest('/auth/login', {
+            method: 'POST',
+            body: JSON.stringify({ email, password })
+          });
+
+          saveAuthSession(res.data.user, res.data.token);
+          showToast(`Welcome back, ${res.data.user.full_name}!`, 'success');
+
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 400);
+        } catch (err) {
+          showToast(err.message, 'error');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Sign In →';
+        }
+      });
+
+      // Handle Register Form Submission
+      const registerForm = document.getElementById('register-form');
+      registerForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const full_name = document.getElementById('reg-name').value;
+        const email = document.getElementById('reg-email').value;
+        const password = document.getElementById('reg-password').value;
+        const role = document.getElementById('reg-role').value;
+        const submitBtn = document.getElementById('register-submit-btn');
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Creating account...';
+
+        try {
+          const res = await apiRequest('/auth/register', {
+            method: 'POST',
+            body: JSON.stringify({ full_name, email, password, role })
+          });
+
+          saveAuthSession(res.data.user, res.data.token);
+          showToast('Account registered successfully!', 'success');
+
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 400);
+        } catch (err) {
+          showToast(err.message, 'error');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Create Account & Enter Portal →';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

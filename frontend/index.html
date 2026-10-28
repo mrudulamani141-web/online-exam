@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Examination Management System</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .hero {
+      padding: 4.5rem 1.5rem 3rem 1.5rem;
+      text-align: center;
+      background: radial-gradient(circle at 50% 20%, #eef2ff 0%, #f8fafc 80%);
+    }
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.25rem;
+      color: #0f172a;
+    }
+    .hero-title span {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 2.5rem auto;
+      line-height: 1.6;
+    }
+    .demo-access-card {
+      max-width: 820px;
+      margin: -1.5rem auto 3rem auto;
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem;
+      box-shadow: var(--shadow-lg);
+      text-align: left;
+    }
+    .demo-badge-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    .demo-role-btn {
+      flex: 1;
+      min-width: 220px;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: #ffffff;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      text-align: left;
+    }
+    .demo-role-btn:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .demo-role-icon {
+      font-size: 1.75rem;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 3.5rem 0;
+    }
+    .feature-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      padding: 2rem;
+      transition: all var(--transition-normal);
+    }
+    .feature-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand">
+        <div class="brand-icon">🎓</div>
+        <div class="brand-text">Exam<span>Core</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="dashboard.html" class="nav-link">Portal</a>
+      </div>
+      <div id="nav-user-section" class="user-menu">
+        <a href="login.html" class="btn btn-secondary btn-sm">Log In</a>
+        <a href="login.html?tab=register" class="btn btn-primary btn-sm">Register</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="container" style="padding-top: 0;">
+      <h1 class="hero-title">
+        Next-Generation <span>Online Examination</span> Management
+      </h1>
+      <p class="hero-subtitle">
+        A unified full-stack assessment platform built for universities, schools, and certification bodies. Featuring Supabase database integration, real-time exam proctoring, and instant automated grading.
+      </p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="dashboard.html" class="btn btn-primary btn-lg">Access Examination Portal →</a>
+        <a href="login.html" class="btn btn-secondary btn-lg">Sign In with Credentials</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Quick Demo Access Bar -->
+  <div class="container" style="padding-top: 0;">
+    <div class="demo-access-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+        <div>
+          <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-main);">⚡ Instant Demo Sign-In</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Click any role below to sign in instantly with seeded sample data:</p>
+        </div>
+        <span class="badge badge-info">Zero Setup Required</span>
+      </div>
+
+      <div class="demo-badge-row">
+        <!-- Admin Demo Login -->
+        <button type="button" class="demo-role-btn" onclick="quickLogin('admin@exam.com', 'Password123!')">
+          <div class="demo-role-icon">🛡️</div>
+          <div>
+            <strong style="color: var(--text-main); font-size: 0.95rem;">Administrator</strong>
+            <div style="font-size: 0.78rem; color: var(--text-muted);">Manage users, oversee all exams & stats</div>
+          </div>
+        </button>
+
+        <!-- Teacher Demo Login -->
+        <button type="button" class="demo-role-btn" onclick="quickLogin('teacher@exam.com', 'Password123!')">
+          <div class="demo-role-icon">👩‍🏫</div>
+          <div>
+            <strong style="color: var(--text-main); font-size: 0.95rem;">Instructor / Teacher</strong>
+            <div style="font-size: 0.78rem; color: var(--text-muted);">Create exams, author questions & review results</div>
+          </div>
+        </button>
+
+        <!-- Student Demo Login -->
+        <button type="button" class="demo-role-btn" onclick="quickLogin('student@exam.com', 'Password123!')">
+          <div class="demo-role-icon">👨‍🎓</div>
+          <div>
+            <strong style="color: var(--text-main); font-size: 0.95rem;">Student Candidate</strong>
+            <div style="font-size: 0.78rem; color: var(--text-muted);">Browse exams, timed testing & gradebook</div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Role Pillars & Features -->
+  <main class="container">
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Designed for Every Academic Stakeholder</h2>
+      <p style="font-size: 1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto;">
+        Role-based access control guarantees privacy, data integrity, and strict assessment controls.
+      </p>
+    </div>
+
+    <div class="features-grid">
+      <!-- Feature 1: Student -->
+      <div class="feature-card">
+        <div class="feature-icon" style="background: #ecfdf5; color: #059669;">🎯</div>
+        <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">For Students</h3>
+        <p style="font-size: 0.9rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 1rem;">
+          Take assessments with real-time countdown timers, interactive question palettes, and review flagging. Receive immediate graded diagnostics upon completion.
+        </p>
+        <ul style="font-size: 0.85rem; color: var(--text-muted); padding-left: 1.2rem; line-height: 1.7;">
+          <li>Interactive countdown & autosave</li>
+          <li>Instant score calculation & pass/fail status</li>
+          <li>Detailed answer breakdown & explanation</li>
+        </ul>
+      </div>
+
+      <!-- Feature 2: Teacher -->
+      <div class="feature-card">
+        <div class="feature-icon" style="background: #eff6ff; color: #2563eb;">📚</div>
+        <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">For Instructors</h3>
+        <p style="font-size: 0.9rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 1rem;">
+          Construct rich exams with customizable time limits, point weightings, and diverse question types (Multiple Choice, True/False, and Short Answer).
+        </p>
+        <ul style="font-size: 0.85rem; color: var(--text-muted); padding-left: 1.2rem; line-height: 1.7;">
+          <li>Dynamic question authoring bank</li>
+          <li>One-click exam publishing toggle</li>
+          <li>Class submission analytics & performance metrics</li>
+        </ul>
+      </div>
+
+      <!-- Feature 3: Admin -->
+      <div class="feature-card">
+        <div class="feature-icon" style="background: #fdf2f8; color: #db2777;">⚙️</div>
+        <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">For Administrators</h3>
+        <p style="font-size: 0.9rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 1rem;">
+          Comprehensive platform oversight with user management, system-wide exam tracking, and automated audit logging backed by Supabase.
+        </p>
+        <ul style="font-size: 0.85rem; color: var(--text-muted); padding-left: 1.2rem; line-height: 1.7;">
+          <li>Role-based user management</li>
+          <li>Global examination monitoring</li>
+          <li>Platform pass rates & analytics telemetry</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container" style="padding: 0;">
+      <p>ExamCore Web-Based Examination Management System • Full Stack Node.js, Express & Supabase Integration</p>
+      <p style="margin-top: 0.35rem; font-size: 0.8rem; color: var(--text-light);">
+        Crafted with strict validation, modular architecture, and modern responsive UI.
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    async function quickLogin(email, password) {
+      try {
+        const res = await apiRequest('/auth/login', {
+          method: 'POST',
+          body: JSON.stringify({ email, password })
+        });
+        saveAuthSession(res.data.user, res.data.token);
+        showToast(`Signed in as ${res.data.user.full_name} (${res.data.user.role})! Redirecting...`, 'success');
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+        }, 500);
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    }
+  </script>
+</body>
+</html>

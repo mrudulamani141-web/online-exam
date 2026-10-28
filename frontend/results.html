@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Examination Results - ExamCore</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .result-summary-card {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 2.5rem;
+    }
+    .score-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+      padding: 1.5rem;
+      background: var(--bg-subtle);
+      border-radius: var(--radius-md);
+    }
+    .score-block {
+      text-align: center;
+    }
+    .score-block-val {
+      font-size: 2.5rem;
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--text-main);
+    }
+    .score-block-lbl {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .progress-bar-container {
+      width: 100%;
+      height: 12px;
+      background: #e2e8f0;
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      transition: width 0.8s ease-in-out;
+    }
+    @media print {
+      .navbar, footer, .no-print {
+        display: none !important;
+      }
+      body {
+        background: white !important;
+      }
+      .container {
+        max-width: 100% !important;
+        padding: 0 !important;
+      }
+      .result-summary-card {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand">
+        <div class="brand-icon">🎓</div>
+        <div class="brand-text">Exam<span>Core</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+      </div>
+      <div id="nav-user-section" class="user-menu">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- Breadcrumb & Actions Bar -->
+    <div class="no-print" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.75rem;">
+      <a href="dashboard.html" class="btn btn-secondary btn-sm">
+        ← Back to Dashboard
+      </a>
+      <div style="display: flex; gap: 0.5rem;">
+        <button type="button" class="btn btn-secondary btn-sm" onclick="window.print()">
+          🖨️ Print / Save PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- 1. Result Summary Card -->
+    <div class="result-summary-card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+        <div>
+          <span style="font-size: 0.85rem; font-weight: 700; color: var(--primary); text-transform: uppercase;">Examination Score Report</span>
+          <h1 id="res-exam-title" style="font-size: 2rem; margin-top: 0.25rem;">Examination Result</h1>
+          <p id="res-subject" style="font-size: 0.95rem; color: var(--text-muted); margin-top: 0.2rem;">Loading assessment metadata...</p>
+        </div>
+        <div style="text-align: right;">
+          <div id="res-status-badge" class="badge">Evaluating...</div>
+          <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.4rem;">
+            Candidate: <strong id="res-student-name" style="color: var(--text-main);">-</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Score Banner -->
+      <div class="score-banner">
+        <div class="score-block">
+          <div class="score-block-val" id="res-score-display">0 / 0</div>
+          <div class="score-block-lbl">Total Score</div>
+        </div>
+        <div class="score-block">
+          <div class="score-block-val" id="res-percentage-display" style="color: var(--primary);">0%</div>
+          <div class="score-block-lbl">Percentage</div>
+        </div>
+        <div class="score-block" style="text-align: left; max-width: 250px;">
+          <div id="res-passing-note" style="font-size: 0.9rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.2rem;">
+            Passing threshold: 40 points
+          </div>
+          <div style="font-size: 0.8rem; color: var(--text-muted);">
+            Scored automatically by the ExamCore Evaluation Engine.
+          </div>
+        </div>
+      </div>
+
+      <!-- Score Meter Progress Bar -->
+      <div class="progress-bar-container">
+        <div id="res-progress-fill" class="progress-bar-fill" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- 2. Detailed Diagnostic Breakdown -->
+    <section>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+        <h2 style="font-size: 1.4rem;">Itemized Question Breakdown & Diagnostic Review</h2>
+        <span style="font-size: 0.85rem; color: var(--text-muted);">Verified Answer Keys</span>
+      </div>
+
+      <div id="feedback-questions-list">
+        <!-- Injected dynamically -->
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>ExamCore Official Examination Certificate & Diagnostic Report</p>
+  </footer>
+
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/results.js"></script>
+</body>
+</html>

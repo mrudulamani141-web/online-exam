@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Examination Room - ExamCore</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/exam.css">
+</head>
+<body class="exam-room-body">
+
+  <!-- Anti-Cheat Warning Alert Banner -->
+  <div id="cheat-alert-banner" class="cheat-alert-banner">
+    ⚠️ Warning: Window focus lost. Please do not navigate away from the examination window.
+  </div>
+
+  <!-- Focused Exam Room Top Bar -->
+  <header class="exam-header">
+    <div class="exam-header-inner">
+      <div class="exam-info-header">
+        <h2 id="exam-title-display">Loading Examination...</h2>
+        <span id="exam-subject-display">Please wait while the question paper initializes</span>
+      </div>
+
+      <!-- Live Countdown Timer -->
+      <div class="timer-container" id="timer-container">
+        <span class="timer-icon">⏳</span>
+        <span class="timer-digits" id="timer-digits">--:--</span>
+      </div>
+
+      <div>
+        <button type="button" class="btn btn-primary btn-sm" id="open-submit-modal-btn">
+          Finish & Submit Exam
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Exam Main Layout -->
+  <main class="exam-layout">
+    <!-- Left: Question Display Workspace -->
+    <div class="question-card">
+      <div class="question-card-top">
+        <span class="q-badge" id="question-number-badge">Question 1</span>
+        <span class="q-points" id="question-points-badge">10 points</span>
+      </div>
+
+      <div class="question-card-body">
+        <div class="question-text" id="question-text-el">
+          Preparing question statement...
+        </div>
+
+        <div id="question-input-container">
+          <!-- Dynamic options radio list or short answer input injected here -->
+        </div>
+      </div>
+
+      <div class="question-card-footer">
+        <div class="nav-buttons-left">
+          <button type="button" class="btn btn-secondary btn-sm" id="clear-answer-btn">
+            Clear Selection
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" id="mark-review-btn">
+            ☆ Mark for Review
+          </button>
+        </div>
+
+        <div class="nav-buttons-right">
+          <button type="button" class="btn btn-secondary" id="prev-question-btn" disabled>
+            ← Previous
+          </button>
+          <button type="button" class="btn btn-primary" id="next-question-btn">
+            Next Question →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Question Palette & Navigation Sidebar -->
+    <aside class="palette-sidebar">
+      <h3 class="palette-title">Question Palette</h3>
+
+      <!-- Legend -->
+      <div class="palette-legend">
+        <div class="legend-item">
+          <div class="legend-color answered"></div>
+          <span>Answered</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color unanswered"></div>
+          <span>Unanswered</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color review"></div>
+          <span>Marked Review</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color current"></div>
+          <span>Current</span>
+        </div>
+      </div>
+
+      <!-- Number Grid -->
+      <div class="palette-grid" id="palette-grid">
+        <!-- Numbered buttons 1..N dynamically injected -->
+      </div>
+
+      <div class="palette-stats">
+        <span id="palette-stats-text">0 of 0 Answered</span>
+      </div>
+
+      <button type="button" class="btn btn-primary palette-submit-btn" onclick="openSubmitConfirmModal()">
+        Submit Examination
+      </button>
+    </aside>
+  </main>
+
+  <!-- Submit Confirmation Modal Dialog -->
+  <div class="modal-overlay" id="submit-confirm-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Confirm Final Submission</h3>
+        <button type="button" class="modal-close" onclick="closeModal('submit-confirm-modal')">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <p style="margin-bottom: 1.25rem;">
+          Are you sure you want to finalize and submit your examination? Once submitted, your answers will be automatically graded and cannot be modified.
+        </p>
+
+        <div style="background: var(--bg-subtle); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1rem;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span>Answered Questions:</span>
+            <strong style="color: var(--success);" id="confirm-answered-count">0</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span>Unanswered Questions:</span>
+            <strong style="color: var(--danger);" id="confirm-unanswered-count">0</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span>Marked for Review:</span>
+            <strong style="color: #8b5cf6;" id="confirm-review-count">0</strong>
+          </div>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--text-muted);">
+          Tip: You can return to the exam and review any questions marked for review before finalizing.
+        </p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('submit-confirm-modal')">
+          Return to Exam
+        </button>
+        <button type="button" class="btn btn-primary" id="confirm-final-submit-btn">
+          Yes, Submit Exam Now
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/exam-taking.js"></script>
+</body>
+</html>

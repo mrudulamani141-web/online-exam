@@ -1,0 +1,85 @@
+==============================================================================
+ONLINE EXAMINATION MANAGEMENT SYSTEM - BACKEND ARCHITECTURE & REST API GUIDE
+==============================================================================
+
+1. TECH STACK & ARCHITECTURE
+------------------------------------------------------------------------------
+• Node.js & Express.js REST API
+• Supabase PostgreSQL Client (@supabase/supabase-js)
+• JSON Web Token (JWT) Bearer Authentication & bcrypt password hashing
+• Centralized Error Handling & Input Validation Middleware
+
+2. PROJECT STRUCTURE
+------------------------------------------------------------------------------
+backend/
+├── server.js               # Express application entrypoint
+├── package.json            # Node.js dependencies & scripts
+├── .env.example            # Environment variables template
+└── src/
+    ├── config/
+    │   ├── config.js       # Configuration variables & defaults
+    │   └── supabase.js     # Supabase client initialization
+    ├── controllers/
+    │   ├── authController.js     # Register, Login, Profile
+    │   ├── examController.js     # CRUD, publish toggle, filters
+    │   ├── questionController.js # Question bank authoring & scoring
+    │   ├── attemptController.js  # Timed attempt sessions & auto-grading
+    │   └── userController.js     # Admin user management & analytics
+    ├── db/
+    │   ├── schema.sql      # Supabase PostgreSQL DDL schema
+    │   ├── seed.sql        # SQL seed data
+    │   └── seed.js         # Node.js seeding runner
+    ├── middleware/
+    │   ├── auth.js         # JWT verification & role authorization
+    │   ├── errorHandler.js # Centralized error & 404 handler
+    │   └── validator.js    # Payload validation schemas
+    ├── routes/
+    │   ├── authRoutes.js
+    │   ├── examRoutes.js
+    │   ├── questionRoutes.js
+    │   ├── attemptRoutes.js
+    │   └── userRoutes.js
+    └── services/
+        ├── dbService.js      # Unified database abstraction layer
+        └── gradingService.js # Automated grading engine
+
+3. KEY REST API ENDPOINTS
+------------------------------------------------------------------------------
+Auth:
+• POST /api/auth/register    - Register new user (student/teacher/admin)
+• POST /api/auth/login       - Authenticate and receive JWT token
+• GET  /api/auth/me          - Retrieve authenticated user profile
+
+Exams:
+• GET    /api/exams          - List exams (with query filters)
+• GET    /api/exams/:id      - Get single exam details & questions
+• POST   /api/exams          - Create new exam (Teacher / Admin)
+• PUT    /api/exams/:id      - Update exam (Teacher / Admin)
+• DELETE /api/exams/:id      - Delete exam (Teacher / Admin)
+• PATCH  /api/exams/:id/publish - Toggle published state
+
+Questions:
+• GET    /api/exams/:examId/questions - Get questions for exam
+• POST   /api/exams/:examId/questions - Add question to exam
+• PUT    /api/questions/:id           - Update question
+• DELETE /api/questions/:id           - Delete question
+
+Exam Attempts & Auto-grading:
+• POST /api/attempts/start       - Start/resume timed exam session
+• POST /api/attempts/:id/submit  - Submit answers & trigger auto-grader
+• GET  /api/attempts/my-attempts - Get candidate attempt history
+• GET  /api/attempts/:id         - Get detailed graded score report
+• GET  /api/exams/:examId/results - Instructor view of all submissions
+
+Admin & Stats:
+• GET    /api/users        - List all users (Admin only)
+• DELETE /api/users/:id    - Delete user (Admin only)
+• GET    /api/users/stats  - System overview metrics (Admin & Teacher)
+
+4. RUNNING THE BACKEND
+------------------------------------------------------------------------------
+cd backend
+npm install
+node server.js
+Server runs at: http://localhost:5000
+==============================================================================

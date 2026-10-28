@@ -1,0 +1,41 @@
+==============================================================================
+ONLINE EXAMINATION MANAGEMENT SYSTEM - DATABASE ARCHITECTURE & SUPABASE GUIDE
+==============================================================================
+
+1. DATABASE OVERVIEW
+------------------------------------------------------------------------------
+The system utilizes Supabase (PostgreSQL) with a relational schema,
+indexes, and Row-Level Security (RLS) policies.
+
+Schema files location:
+- backend/src/db/schema.sql (PostgreSQL DDL schema)
+- backend/src/db/seed.sql   (SQL seed data)
+- backend/src/db/seed.js    (Node.js programmatic seeder)
+
+2. DATA MODEL & RELATIONS
+------------------------------------------------------------------------------
+• USERS (id UUID PK, email UNIQUE, password_hash, full_name, role ['admin', 'teacher', 'student'], is_active, created_at, updated_at)
+• EXAMS (id UUID PK, title, description, subject, teacher_id FK -> users.id, duration_minutes, total_marks, passing_marks, is_published, start_date, end_date, created_at, updated_at)
+• QUESTIONS (id UUID PK, exam_id FK -> exams.id, question_text, question_type ['multiple_choice', 'true_false', 'short_answer'], points, options JSONB, correct_answer, explanation, order_index, created_at)
+• EXAM_ATTEMPTS (id UUID PK, exam_id FK -> exams.id, student_id FK -> users.id, started_at, submitted_at, status ['in_progress', 'completed', 'timed_out'], total_score, max_score, percentage, is_passed, answers JSONB, feedback JSONB, created_at)
+
+3. HOW TO CONNECT SUPABASE CLOUD
+------------------------------------------------------------------------------
+Step 1: Create a project at https://supabase.com
+Step 2: In Supabase SQL Editor, copy and execute:
+        backend/src/db/schema.sql
+        backend/src/db/seed.sql
+Step 3: In backend/.env, update:
+        SUPABASE_URL=https://your-project-id.supabase.co
+        SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key
+Step 4: Restart the backend server.
+        The backend automatically detects the credentials and connects to Supabase.
+
+4. SEED DEMO ACCOUNTS
+------------------------------------------------------------------------------
+Default Password for all accounts: Password123!
+• Administrator:  admin@exam.com
+• Instructor:     teacher@exam.com
+• Student 1:      student@exam.com
+• Student 2:      student2@exam.com
+==============================================================================
